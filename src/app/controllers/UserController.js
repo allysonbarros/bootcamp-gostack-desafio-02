@@ -14,7 +14,7 @@ class UserController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validatation fails.' });
+      return res.status(400).json({ error: 'Validation fails.' });
     }
 
     const userExists = await User.findOne({ where: { email: req.body.email } });
@@ -48,7 +48,7 @@ class UserController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validatation fails.' });
+      return res.status(400).json({ error: 'Validation fails.' });
     }
 
     const { email, oldPassword } = req.body;

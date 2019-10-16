@@ -21,7 +21,7 @@ class StudentsController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validatation fails.' });
+      return res.status(400).json({ error: 'Validation fails.' });
     }
 
     const studentExists = await Student.findOne({
@@ -47,7 +47,7 @@ class StudentsController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validatation fails.' });
+      return res.status(400).json({ error: 'Validation fails.' });
     }
 
     const student = await Student.findByPk(req.params.id);
@@ -65,8 +65,6 @@ class StudentsController {
     }
 
     await student.update(req.body);
-    student.reload();
-
     return res.json(student);
   }
 }
