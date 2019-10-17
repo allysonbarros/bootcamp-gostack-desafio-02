@@ -52,7 +52,7 @@ Crie alguns planos como por exemplo:
 - `Gold`: Plano de 3 meses por R\$109/mês;
 - `Diamond`: Plano de 6 meses por R\$89/mês;
 
-Crie rotas para listagem/cadastro/atualização/remocação de planos;
+Crie rotas para listagem/cadastro/atualização/remoção de planos;
 
 Obs.: Essa funcionalidade é para administradores autenticados na aplicação.
 
@@ -81,7 +81,7 @@ Preço calculado: `R$327`
 
 Quando um aluno **realiza uma matrícula** ele recebe um e-mail com detalhes da sua inscrição na academia como plano, data de término, valor e uma mensagem de boas-vidas.
 
-Crie rotas para listagem/cadastro/atualização/remocação de matrículas;
+Crie rotas para listagem/cadastro/atualização/remoção de matrículas;
 
 Obs.: Essa funcionalidade é para administradores autenticados na aplicação.
 
