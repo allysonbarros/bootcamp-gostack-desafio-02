@@ -8,7 +8,7 @@ import StudentsController from './app/controllers/StudentsController';
 import PlanController from './app/controllers/PlanController';
 import RegistrationController from './app/controllers/RegistrationController';
 import CheckinController from './app/controllers/CheckinController';
-import HelpOrderController from './app/controllers/HelpOrderController';
+// import HelpOrderController from './app/controllers/HelpOrderController';
 
 const routes = new Router();
 
@@ -24,10 +24,10 @@ routes.post('/students', StudentsController.store);
 routes.put('/students/:id', StudentsController.update);
 routes.get('/students/:id/checkins', CheckinController.index);
 routes.post('/students/:id/checkins', CheckinController.store);
-routes.get('/students/:id/help_orders', HelpOrderController.index_student);
-routes.post('/students/:id/help_orders', HelpOrderController.store);
+// routes.get('/students/:id/help_orders', HelpOrderController.index_student);
+// routes.post('/students/:id/help_orders', HelpOrderController.store);
 
-routes.get('/help_orders/', HelpOrderController.index);
+// routes.get('/help_orders/', HelpOrderController.index);
 
 routes.use(adminOnlyMiddleware);
 

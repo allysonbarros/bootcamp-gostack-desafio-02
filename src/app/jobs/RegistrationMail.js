@@ -10,7 +10,7 @@ class RegistrationMail {
   async handle({ data }) {
     const { registration } = data;
 
-    await Mail.senddMail({
+    await Mail.sendMail({
       to: `${registration.student.name} <${registration.student.email}>`,
       subject: 'Matrícula realizada! [GymPoint]',
       template: 'registration',
@@ -19,14 +19,14 @@ class RegistrationMail {
         registration,
         start_date: format(
           parseISO(registration.start_date),
-          "dd 'de' MMMM 'de' YYYY.'",
+          "dd 'de' MMMM 'de' yyyy.'",
           {
             locale: pt,
           }
         ),
         end_date: format(
           parseISO(registration.end_date),
-          "dd 'de' MMMM 'de' YYYY.'",
+          "dd 'de' MMMM 'de' yyyy.'",
           {
             locale: pt,
           }

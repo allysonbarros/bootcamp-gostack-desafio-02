@@ -54,12 +54,27 @@ class RegistrationController {
       return res.status(404).json({ message: 'Plan does not exists.' });
     }
 
-    const registration = await Registration.create({
+    const { id } = await Registration.create({
       student_id,
       plan_id,
       start_date: parseISO(start_date),
       end_date: addMonths(parseISO(start_date), plan.duration),
       price: plan.price * plan.duration,
+    });
+
+    const registration = await Registration.findByPk(id, {
+      include: [
+        {
+          model: Student,
+          as: 'student',
+          attributes: ['id', 'name', 'email'],
+        },
+        {
+          model: Plan,
+          as: 'plan',
+          attributes: ['id', 'title', 'duration', 'price'],
+        },
+      ],
     });
 
     await Queue.add(RegistrationMail.key, {
