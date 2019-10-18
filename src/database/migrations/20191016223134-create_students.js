@@ -16,15 +16,15 @@ module.exports = {
         allowNull: false,
         unique: true,
       },
-      idade: {
+      age: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      peso: {
+      weight: {
         type: Sequelize.DOUBLE,
         allowNull: false,
       },
-      altura: {
+      height: {
         type: Sequelize.DOUBLE,
         allowNull: false,
       },

@@ -9,13 +9,14 @@ class StudentsController {
       email: Yup.string()
         .email()
         .required(),
-      idade: Yup.number()
+      age: Yup.number()
+        .integer()
         .positive()
         .required(),
-      peso: Yup.number()
+      weight: Yup.number()
         .positive()
         .required(),
-      altura: Yup.number()
+      height: Yup.number()
         .positive()
         .required(),
     });
@@ -41,9 +42,9 @@ class StudentsController {
       email: Yup.string()
         .email()
         .required(),
-      idade: Yup.number().positive(),
-      peso: Yup.number().positive(),
-      altura: Yup.number().positive(),
+      age: Yup.number().positive(),
+      weight: Yup.number().positive(),
+      height: Yup.number().positive(),
     });
 
     if (!(await schema.isValid(req.body))) {

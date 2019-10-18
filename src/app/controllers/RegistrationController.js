@@ -9,6 +9,16 @@ class RegistrationController {
   async index(req, res) {
     const registrations = await Registration.findAll({
       order: [['start_date', 'desc']],
+      include: [
+        {
+          model: Student,
+          as: 'student',
+        },
+        {
+          model: Plan,
+          as: 'plan',
+        },
+      ],
     });
     return res.json(registrations);
   }
@@ -31,7 +41,7 @@ class RegistrationController {
     });
 
     if (!student) {
-      return res.status(401).json({ message: 'Student does not exists.' });
+      return res.status(404).json({ message: 'Student does not exists.' });
     }
 
     const plan = await Plan.findOne({
@@ -39,7 +49,7 @@ class RegistrationController {
     });
 
     if (!plan) {
-      return res.status(401).json({ message: 'Plan does not exists.' });
+      return res.status(404).json({ message: 'Plan does not exists.' });
     }
 
     const registration = await Registration.create({

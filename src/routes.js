@@ -7,6 +7,7 @@ import adminOnlyMiddleware from './app/middlewares/adminOnly';
 import StudentsController from './app/controllers/StudentsController';
 import PlanController from './app/controllers/PlanController';
 import RegistrationController from './app/controllers/RegistrationController';
+import CheckinController from './app/controllers/CheckinController';
 
 const routes = new Router();
 
@@ -20,6 +21,8 @@ routes.put('/users', UserController.update);
 
 routes.post('/students', StudentsController.store);
 routes.put('/students/:id', StudentsController.update);
+routes.get('/students/:id/checkins', CheckinController.index);
+routes.post('/students/:id/checkins', CheckinController.store);
 
 routes.use(adminOnlyMiddleware);
 
