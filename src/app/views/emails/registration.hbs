@@ -7,11 +7,11 @@
   Você foi matriculado(a) em nosso sistema. Seguem abaixo os dados da sua matrícula:
   <br />
   <br />
-  <strong>Data da Matrícula</strong>: {{ registration.createdAt }},
+  <strong>Data da Matrícula</strong>: {{formatDate registration.createdAt day="numeric" month="long" year="numeric" }},
   <br />
   <strong>Plano</strong>: {{ registration.plan.title }} ({{ registration.plan.duration }} Meses),
   <br />
-  <strong>Preço Total</strong>: R$ {{ registration.price }},
+  <strong>Preço Total</strong>: {{formatNumber registration.price style="currency" currency="BRL"}},
   <br />
   <strong>Vigência da Matrícula</strong>: De {{ start_date }} até {{ end_date }}
   <br />

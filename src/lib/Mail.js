@@ -1,6 +1,9 @@
 import { resolve } from 'path';
 import nodemailer from 'nodemailer';
+import Handlebars from 'handlebars';
 import exphbs from 'express-handlebars';
+import HandlebarsIntl from 'handlebars-intl';
+
 import nodemailerhbs from 'nodemailer-express-handlebars';
 import mailConfig from '../config/mail';
 
@@ -32,6 +35,8 @@ class Mail {
         extName: '.hbs',
       })
     );
+
+    HandlebarsIntl.registerWith(Handlebars);
   }
 
   sendMail(message) {
