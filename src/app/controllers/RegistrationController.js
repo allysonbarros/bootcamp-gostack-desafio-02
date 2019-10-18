@@ -4,6 +4,8 @@ import { addMonths, parseISO } from 'date-fns';
 import Registration from '../models/Registration';
 import Student from '../models/Student';
 import Plan from '../models/Plan';
+import Queue from '../../lib/Queue';
+import RegistrationMail from '../jobs/RegistrationMail';
 
 class RegistrationController {
   async index(req, res) {
@@ -60,7 +62,9 @@ class RegistrationController {
       price: plan.price * plan.duration,
     });
 
-    // TODO: Adicionar o envio de emails.
+    await Queue.add(RegistrationMail.key, {
+      registration,
+    });
 
     return res.json(registration);
   }

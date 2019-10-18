@@ -1,5 +1,14 @@
-<strong>
-  Olá, {{ student }}
-</strong>
+<p>
+  <strong>
+    Olá, {{ student.name }}!
+  </strong>
+  <br />
 
-{{!-- TODO: Elaborar o conteúdo do email. --}}
+  Você foi matriculado em nosso sistema. Seguem abaixo os dados da sua matrícula:
+  <br />
+  <br />
+  <strong>Data da Matrícula: </strong> {{ registration.created_at}},
+  <strong>Plano: </strong> {{ registration.plan.name }} ({{ registration.plan.duration }} Meses),
+  <strong>Preço Total: </strong> R$ {{ registration.price }},
+  <strong>Vigência da Matrícula: De {{ start_date }} até {{ end_date }}
+</p>
