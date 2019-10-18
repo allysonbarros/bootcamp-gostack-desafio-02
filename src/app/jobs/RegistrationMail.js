@@ -17,16 +17,23 @@ class RegistrationMail {
       context: {
         student: registration.student,
         registration,
+        created_at: format(
+          parseISO(registration.createdAt),
+          "dd 'de' MMMM 'de' yyyy'",
+          {
+            locale: pt,
+          }
+        ),
         start_date: format(
           parseISO(registration.start_date),
-          "dd 'de' MMMM 'de' yyyy.'",
+          "dd 'de' MMMM 'de' yyyy'",
           {
             locale: pt,
           }
         ),
         end_date: format(
           parseISO(registration.end_date),
-          "dd 'de' MMMM 'de' yyyy.'",
+          "dd 'de' MMMM 'de' yyyy'",
           {
             locale: pt,
           }
