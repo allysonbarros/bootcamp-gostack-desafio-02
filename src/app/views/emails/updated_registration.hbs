@@ -15,7 +15,8 @@
   <strong>Data da Atualização</strong>: {{ updated_at }},
   <br />
 
-  <strong>Plano</strong>: {{ registration.plan.title }} ({{pluralize registration.plan.duration one='# Mês' few='# Mêses' many='# Mêses'}}),
+  <strong>Plano</strong>: {{ registration.plan.title }}
+  ({{pluralize registration.plan.duration one='# Mês' few='# Mêses' many='# Mêses'}}),
   <br />
 
   <strong>Preço Total</strong>: {{formatNumber registration.price style="currency" currency="BRL"}},
