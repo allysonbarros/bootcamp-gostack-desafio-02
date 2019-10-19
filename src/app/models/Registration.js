@@ -1,4 +1,5 @@
 import Sequelize, { Model } from 'sequelize';
+import { addMonths, parseISO } from 'date-fns';
 
 class Registration extends Model {
   static init(sequelize) {
@@ -12,6 +13,14 @@ class Registration extends Model {
         sequelize,
       }
     );
+
+    this.addHook('beforeSave', async registration => {
+      const plan = await registration.getPlan();
+
+      registration.end_date = addMonths(registration.start_date, plan.duration);
+
+      registration.price = plan.price * plan.duration;
+    });
 
     return this;
   }

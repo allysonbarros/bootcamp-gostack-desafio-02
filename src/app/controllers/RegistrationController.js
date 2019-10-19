@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { addMonths, parseISO } from 'date-fns';
+import { parseISO } from 'date-fns';
 
 import Registration from '../models/Registration';
 import Student from '../models/Student';
@@ -58,8 +58,6 @@ class RegistrationController {
       student_id,
       plan_id,
       start_date: parseISO(start_date),
-      end_date: addMonths(parseISO(start_date), plan.duration),
-      price: plan.price * plan.duration,
     });
 
     const registration = await Registration.findByPk(id, {
@@ -75,6 +73,14 @@ class RegistrationController {
           attributes: ['id', 'title', 'duration', 'price'],
         },
       ],
+      attributes: [
+        'id',
+        'start_date',
+        'end_date',
+        'price',
+        'created_at',
+        'updated_at',
+      ],
     });
 
     await Queue.add(RegistrationMail.key, {
@@ -85,12 +91,48 @@ class RegistrationController {
   }
 
   async update(req, res) {
-    // TODO: Implementar o método para atualização de uma matrícula.
-    return res.json();
+    const schema = Yup.object().shape({
+      plan_id: Yup.number(),
+      start_date: Yup.date(),
+    });
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Validation fails.' });
+    }
+
+    const { id } = req.params;
+    const { plan_id, start_date } = req.body;
+
+    if (plan_id) {
+      const plan = await Plan.findOne({
+        where: { id: req.body.plan_id },
+      });
+
+      if (!plan) {
+        return res.status(404).json({ message: 'Plan does not exists.' });
+      }
+    }
+
+    const registration = await Registration.findByPk(id);
+
+    if (!registration) {
+      return res.status(404).json({ message: 'Registration does not exists.' });
+    }
+
+    await registration.update({
+      plan_id,
+      start_date,
+    });
+
+    // TODO: Enviar email de alteração de matrícula.
+
+    return res.json(registration);
   }
 
   async delete(req, res) {
-    const registration = await Registration.findByPk(req.params.id);
+    const { id } = req.params;
+    const registration = await Registration.findByPk(id);
+
     await registration.destroy();
     return res.json();
   }
