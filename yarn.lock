@@ -1464,6 +1464,11 @@ handlebars-intl@^1.1.2:
     intl-messageformat "1.1.0"
     intl-relativeformat "1.1.0"
 
+handlebars-pluralize@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/handlebars-pluralize/-/handlebars-pluralize-1.0.2.tgz#75a36b5554987fce88f78c52d44300ccab883b14"
+  integrity sha1-daNrVVSYf86I94xS1EMAzKuIOxQ=
+
 handlebars@^4.1.2:
   version "4.4.3"
   resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.4.3.tgz#180bae52c1d0e9ec0c15d7e82a4362d662762f6e"

@@ -3,6 +3,7 @@ import nodemailer from 'nodemailer';
 import Handlebars from 'handlebars';
 import exphbs from 'express-handlebars';
 import HandlebarsIntl from 'handlebars-intl';
+import pluralize from 'handlebars-pluralize';
 
 import nodemailerhbs from 'nodemailer-express-handlebars';
 import mailConfig from '../config/mail';
@@ -37,6 +38,7 @@ class Mail {
     );
 
     HandlebarsIntl.registerWith(Handlebars);
+    Handlebars.registerHelper('pluralize', pluralize);
   }
 
   sendMail(message) {

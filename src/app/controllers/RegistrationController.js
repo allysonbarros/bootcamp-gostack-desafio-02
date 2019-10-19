@@ -114,15 +114,59 @@ class RegistrationController {
       }
     }
 
-    const registration = await Registration.findByPk(id);
+    const registration = await Registration.findByPk(id, {
+      include: [
+        {
+          model: Student,
+          as: 'student',
+          attributes: ['id', 'name', 'email'],
+        },
+        {
+          model: Plan,
+          as: 'plan',
+          attributes: ['id', 'title', 'duration', 'price'],
+        },
+      ],
+      attributes: [
+        'id',
+        'start_date',
+        'end_date',
+        'price',
+        'createdAt',
+        'updatedAt',
+      ],
+    });
 
     if (!registration) {
       return res.status(404).json({ message: 'Registration does not exists.' });
     }
 
     await registration.update({
-      plan_id,
+      plan_id: plan_id || registration.plan.id,
       start_date,
+    });
+
+    await registration.reload({
+      include: [
+        {
+          model: Student,
+          as: 'student',
+          attributes: ['id', 'name', 'email'],
+        },
+        {
+          model: Plan,
+          as: 'plan',
+          attributes: ['id', 'title', 'duration', 'price'],
+        },
+      ],
+      attributes: [
+        'id',
+        'start_date',
+        'end_date',
+        'price',
+        'createdAt',
+        'updatedAt',
+      ],
     });
 
     await Queue.add(UpdateRegistrationMail.key, {
