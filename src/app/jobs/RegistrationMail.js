@@ -10,6 +10,7 @@ class RegistrationMail {
   async handle({ data }) {
     const { registration } = data;
 
+    console.log('Executando a tarefa de envio de email.');
     await Mail.sendMail({
       to: `${registration.student.name} <${registration.student.email}>`,
       subject: 'Matrícula realizada! [GymPoint]',

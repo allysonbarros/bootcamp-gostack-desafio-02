@@ -6,6 +6,7 @@ import Student from '../models/Student';
 import Plan from '../models/Plan';
 import Queue from '../../lib/Queue';
 import RegistrationMail from '../jobs/RegistrationMail';
+import UpdateRegistrationMail from '../jobs/UpdateRegistrationMail';
 
 class RegistrationController {
   async index(req, res) {
@@ -124,7 +125,9 @@ class RegistrationController {
       start_date,
     });
 
-    // TODO: Enviar email de alteração de matrícula.
+    await Queue.add(UpdateRegistrationMail.key, {
+      registration,
+    });
 
     return res.json(registration);
   }
