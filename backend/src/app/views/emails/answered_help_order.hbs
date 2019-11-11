@@ -1,0 +1,20 @@
+<p>
+  <strong>
+    Olá, {{ student.name }}!
+  </strong>
+  <br />
+
+  Seu pedido de auxílio feito em {{ created_at }} foi respondido!
+  Seguem abaixo os novos dados:
+  <br />
+  <br />
+
+  <strong>Pergunta</strong>: "{{ help_order.question }}"
+  <br />
+
+  <strong>Resposta</strong>: "{{ help_order.answer }}"
+  <br />
+
+  <strong>Data da Resposta</strong>: {{ answered_at }}
+  <br />
+</p>

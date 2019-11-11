@@ -1,0 +1,22 @@
+<p>
+  <strong>
+    Olá, {{ student.name }}!
+  </strong>
+  <br />
+
+  Você foi matriculado(a) em nosso sistema. Seguem abaixo os dados da sua matrícula:
+  <br />
+  <br />
+
+  <strong>Data da Matrícula</strong>: {{ created_at }},
+  <br />
+
+  <strong>Plano</strong>: {{ registration.plan.title }} ({{pluralize registration.plan.duration one='# Mês' few='# Mêses' many='# Mêses'}}),
+  <br />
+
+  <strong>Preço Total</strong>: {{formatNumber registration.price style="currency" currency="BRL"}},
+  <br />
+
+  <strong>Vigência da Matrícula</strong>: De {{ start_date }} até {{ end_date }}
+  <br />
+</p>
