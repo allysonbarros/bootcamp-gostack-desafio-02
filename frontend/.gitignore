@@ -1,4 +1,4 @@
 node_modules/
-tmp/uploads
+tmp/uploads/
 .vscode/
 .env
