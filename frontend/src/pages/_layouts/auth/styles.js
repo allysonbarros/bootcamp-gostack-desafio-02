@@ -33,6 +33,12 @@ export const Content = styled.div`
       color: #444;
     }
 
+    span {
+      font-size: 12px;
+      margin-top: 10px;
+      color: #ee4d64;
+    }
+
     input {
       height: 45px;
       padding: 16px;
@@ -65,7 +71,7 @@ export const Content = styled.div`
     a {
       color: #999;
       margin-top: 20px;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: bold;
 
       &:hover {
