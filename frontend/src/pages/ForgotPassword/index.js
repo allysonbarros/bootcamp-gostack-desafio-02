@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 
 import logo from '~/assets/logo.svg';
 
-export default function SignIn() {
+import {} from './styles';
+
+export default function ForgotPassword() {
   return (
     <>
       <img src={logo} alt="GymPoint" />
@@ -13,17 +15,9 @@ export default function SignIn() {
           Seu E-mail
           <input type="email" name="email" placeholder="exemplo@email.com" />
         </label>
-        <label htmlFor="password">
-          Sua Senha
-          <input
-            type="password"
-            name="password"
-            placeholder="Sua senha secreta"
-          />
-        </label>
 
-        <button type="submit">Entrar no sistema</button>
-        <Link to="/forgot-password">Esqueci minha Senha</Link>
+        <button type="submit">Recuperar a Senha</button>
+        <Link to="/">Cancelar</Link>
       </form>
     </>
   );
