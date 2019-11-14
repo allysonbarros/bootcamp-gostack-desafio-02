@@ -10,11 +10,13 @@ import RegistrationController from './app/controllers/RegistrationController';
 import CheckinController from './app/controllers/CheckinController';
 import GymHelpOrderController from './app/controllers/GymHelpOrderController';
 import StudentHelpOrderController from './app/controllers/StudentHelpOrderController';
+import PasswordRecoveryController from './app/controllers/PasswordRecoveryController';
 
 const routes = new Router();
 
-// Students
+// Sessions
 routes.post('/sessions', SessionController.store);
+routes.post('/sessions/recovery', PasswordRecoveryController.store);
 
 // Users
 routes.post('/users', UserController.store);
