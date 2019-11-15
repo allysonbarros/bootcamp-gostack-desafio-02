@@ -1,8 +1,10 @@
 import crypto from 'crypto';
+import { subHours, isBefore } from 'date-fns';
 import * as Yup from 'yup';
 
-import { subHours } from 'date-fns';
 import User from '../models/User';
+import Queue from '../../lib/Queue';
+import PasswordRecoveryMail from '../jobs/PasswordRecoveryMail';
 
 class PasswordRecoveryController {
   async store(req, res) {
@@ -24,15 +26,57 @@ class PasswordRecoveryController {
       return res.status(401).json({ error: 'User not found.' });
     }
 
-    const token = crypto.randomBytes(32).toString('hex');
+    const token = await crypto.randomBytes(32).toString('hex');
     const expiration_date = subHours(new Date(), 2);
 
-    user.update({
+    await user.reload();
+    await user.update({
       recovery_token: token,
       recovery_token_expiration_at: expiration_date,
     });
 
-    return res.status(201).json();
+    await Queue.add(PasswordRecoveryMail.key, {
+      user,
+    });
+
+    return res.json();
+  }
+
+  async update(req, res) {
+    const schema = Yup.object().shape({
+      token: Yup.string().required(),
+      password: Yup.string()
+        .required()
+        .min(6),
+      confirmPassword: Yup.string().oneOf([Yup.ref('password')]),
+    });
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Validation fails.' });
+    }
+
+    const { token, password } = req.body;
+
+    const user = await User.findOne({ where: { recovery_token: token } });
+
+    if (!user) {
+      return res.status(401).json({ error: 'User not found.' });
+    }
+
+    const tokenIsValid = isBefore(
+      user.recovery_token_expiration_at,
+      new Date()
+    );
+    if (!tokenIsValid) {
+      return res.status(401).json({ error: 'Expired token.' });
+    }
+
+    await user.update({
+      password,
+      recovery_token: null,
+      recovery_token_expiration_at: null,
+    });
+    return res.json();
   }
 }
 
