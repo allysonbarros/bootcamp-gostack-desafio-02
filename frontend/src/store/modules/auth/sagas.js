@@ -61,7 +61,7 @@ export function* passwordReset({ payload }) {
     toast.success(`Sua senha foi alterada com sucesso!`);
     history.push('/');
   } catch (err) {
-    toast.error('O Token informado é inválido ou ele foi expirado.');
+    toast.error('O Token informado é inválido ou ele está expirado.');
     yield put(signFailure());
   }
 }
