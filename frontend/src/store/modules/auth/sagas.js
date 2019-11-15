@@ -18,7 +18,8 @@ export function* signIn({ payload }) {
     const { token, user } = response.data;
 
     if (!user.is_superuser) {
-      console.tron.error('Usuário informado não é administrador.');
+      toast.error('Usuário informado não é administrador.');
+      yield put(signFailure());
       return;
     }
 
