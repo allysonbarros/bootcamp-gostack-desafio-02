@@ -19,6 +19,22 @@ export default function auth(state = INITIAL_STATE, action) {
         draft.loading = false;
         break;
       }
+      case '@auth/PASSWORD_RECOVERY_REQUEST': {
+        draft.loading = true;
+        break;
+      }
+      case '@auth/PASSWORD_RECOVERY_SUCCESS': {
+        draft.loading = false;
+        break;
+      }
+      case '@auth/RESET_PASSWORD_REQUEST': {
+        draft.loading = true;
+        break;
+      }
+      case '@auth/RESET_PASSWORD_SUCCESS': {
+        draft.loading = false;
+        break;
+      }
       case '@auth/SIGN_FAILURE': {
         draft.loading = false;
         break;

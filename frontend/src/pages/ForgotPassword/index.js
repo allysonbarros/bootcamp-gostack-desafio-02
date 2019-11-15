@@ -1,9 +1,11 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import logo from '~/assets/logo.svg';
+import { PasswordRecoveryRequest } from '~/store/modules/auth/actions';
 
 const schema = Yup.object().shape({
   email: Yup.string()
@@ -12,8 +14,11 @@ const schema = Yup.object().shape({
 });
 
 export default function ForgotPassword() {
-  function handleSubmit(data) {
-    console.tron.log(data);
+  const dispatch = useDispatch();
+  const loading = useSelector(state => state.auth.loading);
+
+  function handleSubmit({ email, password }) {
+    dispatch(PasswordRecoveryRequest(email, password));
   }
 
   return (
@@ -26,7 +31,9 @@ export default function ForgotPassword() {
           <Input type="email" name="email" placeholder="exemplo@email.com" />
         </label>
 
-        <button type="submit">Recuperar a Senha</button>
+        <button type="submit">
+          {loading ? 'Carregando...' : 'Recuperar a Senha'}
+        </button>
         <Link to="/">Cancelar</Link>
       </Form>
     </>

@@ -16,7 +16,7 @@ class PasswordRecoveryMail {
       template: 'password_recovery',
       context: {
         user,
-        FRONTEND_URL: process.env.FRONT_END_URL,
+        FRONTEND_URL: process.env.FRONTEND_URL,
       },
     });
   }

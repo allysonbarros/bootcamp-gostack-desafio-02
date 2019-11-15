@@ -1,9 +1,12 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams, Link } from 'react-router-dom';
 import { Form, Input } from '@rocketseat/unform';
-import { Link } from 'react-router-dom';
+
 import * as Yup from 'yup';
 
 import logo from '~/assets/logo.svg';
+import { ResetPasswordRequest } from '~/store/modules/auth/actions';
 
 const schema = Yup.object().shape({
   password: Yup.string()
@@ -15,8 +18,12 @@ const schema = Yup.object().shape({
 });
 
 export default function ResetPassword() {
-  function handleSubmit(data) {
-    console.tron.log(data);
+  const { token } = useParams();
+  const dispatch = useDispatch();
+  const loading = useSelector(state => state.auth.loading);
+
+  function handleSubmit({ password, confirmPassword }) {
+    dispatch(ResetPasswordRequest(token, password, confirmPassword));
   }
 
   return (
@@ -42,7 +49,9 @@ export default function ResetPassword() {
           />
         </label>
 
-        <button type="submit">Redefinir a Senha</button>
+        <button type="submit">
+          {loading ? 'Carregando...' : 'Redefinir a Senha'}
+        </button>
         <Link to="/">Cancelar</Link>
       </Form>
     </>
