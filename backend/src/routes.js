@@ -17,7 +17,7 @@ const routes = new Router();
 // Sessions
 routes.post('/sessions', SessionController.store);
 routes.post('/sessions/recovery', PasswordRecoveryController.store);
-routes.put('/sessions/recovery/', PasswordRecoveryController.update);
+routes.put('/sessions/recovery', PasswordRecoveryController.update);
 
 // Users
 routes.post('/users', UserController.store);
