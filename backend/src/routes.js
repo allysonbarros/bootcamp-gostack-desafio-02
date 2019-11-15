@@ -16,7 +16,10 @@ const routes = new Router();
 
 // Sessions
 routes.post('/sessions', SessionController.store);
+
+// Password Recovery
 routes.post('/sessions/recovery', PasswordRecoveryController.store);
+routes.post('/sessions/recovery/verify', PasswordRecoveryController.verify);
 routes.put('/sessions/recovery', PasswordRecoveryController.update);
 
 // Users

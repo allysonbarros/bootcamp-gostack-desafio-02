@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import { Form, Input } from '@rocketseat/unform';
+import { toast } from 'react-toastify';
 
 import * as Yup from 'yup';
 
 import logo from '~/assets/logo.svg';
 import { ResetPasswordRequest } from '~/store/modules/auth/actions';
+import api from '~/services/api';
+import history from '~/services/history';
 
 const schema = Yup.object().shape({
   password: Yup.string()
@@ -21,6 +24,21 @@ export default function ResetPassword() {
   const { token } = useParams();
   const dispatch = useDispatch();
   const loading = useSelector(state => state.auth.loading);
+
+  useEffect(() => {
+    async function checkRecoveryToken() {
+      try {
+        await api.post('sessions/recovery/verify', { token });
+      } catch (error) {
+        toast.error(
+          `Não é possível redefinir sua senha pois o token informado não existe ou está expirado!`
+        );
+        history.push('/forgot-password');
+      }
+    }
+
+    checkRecoveryToken();
+  }, [token]);
 
   function handleSubmit({ password, confirmPassword }) {
     dispatch(ResetPasswordRequest(token, password, confirmPassword));

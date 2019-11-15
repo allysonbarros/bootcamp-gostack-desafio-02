@@ -7,6 +7,35 @@ import Queue from '../../lib/Queue';
 import PasswordRecoveryMail from '../jobs/PasswordRecoveryMail';
 
 class PasswordRecoveryController {
+  async verify(req, res) {
+    const schema = Yup.object().shape({
+      token: Yup.string().required(),
+    });
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Validation fails.' });
+    }
+
+    const { token } = req.body;
+
+    const user = await User.findOne({ where: { recovery_token: token } });
+
+    if (!user) {
+      return res.status(401).json({ error: 'Token not found.' });
+    }
+
+    const tokenIsValid = isBefore(
+      user.recovery_token_expiration_at,
+      new Date()
+    );
+
+    if (!tokenIsValid) {
+      return res.status(401).json({ error: 'Expired token.' });
+    }
+
+    return res.json();
+  }
+
   async store(req, res) {
     const schema = Yup.object().shape({
       email: Yup.string()
