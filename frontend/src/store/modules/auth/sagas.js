@@ -67,8 +67,13 @@ export function* passwordReset({ payload }) {
   }
 }
 
+export function signOut() {
+  history.push('/');
+}
+
 export default all([
   takeLatest('@auth/SIGN_IN_REQUEST', signIn),
   takeLatest('@auth/PASSWORD_RECOVERY_REQUEST', passwordRecovery),
   takeLatest('@auth/RESET_PASSWORD_REQUEST', passwordReset),
+  takeLatest('@auth/SIGN_OUT', signOut),
 ]);
