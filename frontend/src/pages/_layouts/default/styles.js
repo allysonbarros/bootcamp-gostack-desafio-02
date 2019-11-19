@@ -9,6 +9,7 @@ export const Wrapper = styled.div`
 
 export const Container = styled.div`
   width: 90%;
+  height: 100%;
   max-width: 1200px;
   margin: 0 auto;
 `;

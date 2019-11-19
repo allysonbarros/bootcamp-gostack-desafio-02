@@ -9,6 +9,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin-bottom: 30px;
 
   img.logo {
     height: 24px;
